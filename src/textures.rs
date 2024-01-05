@@ -64,11 +64,22 @@ impl SpineTextures {
 
         let data2 = data.clone();
         rusty_spine::extension::set_create_texture_cb(move |page, path| {
+            let premultiplied_alpha = {
+                #[cfg(feature = "spine38")]
+                {
+                    false
+                }
+                #[cfg(not(feature = "spine38"))]
+                {
+                    page.pma()
+                }
+            };
+
             data2.lock().unwrap().remember.push(SpineTextureInternal {
                 path: path.to_owned(),
                 atlas_address: page.atlas().c_ptr() as usize,
                 config: SpineTextureConfig {
-                    premultiplied_alpha: page.pma(),
+                    premultiplied_alpha: premultiplied_alpha,
                     min_filter: page.min_filter(),
                     mag_filter: page.mag_filter(),
                     u_wrap: page.u_wrap(),

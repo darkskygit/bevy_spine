@@ -543,8 +543,11 @@ fn spine_load(
                 } else {
                     continue;
                 };
-                if let Some(page) = atlas.atlas.pages().next() {
-                    *premultiplied_alpha = page.pma();
+                #[cfg(not(feature = "spine38"))]
+                {
+                    if let Some(page) = atlas.atlas.pages().next() {
+                        *premultiplied_alpha = page.pma();
+                    }
                 }
                 match kind {
                     SkeletonDataKind::JsonFile(json_handle) => {

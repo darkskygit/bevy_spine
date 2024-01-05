@@ -7,22 +7,26 @@ homepage = "https://github.com/jabuwu/bevy_spine"
 repository = "https://github.com/jabuwu/bevy_spine"
 readme = "readme.md"
 license-file = "LICENSE"
-exclude = [
-    "assets/*",
-]
+exclude = ["assets/*"]
 
 [dependencies]
-rusty_spine = "0.7"
-bevy = { version = "0.12", default-features = false, features = [ "bevy_render", "bevy_asset", "bevy_sprite" ] }
-glam = { version = "0.24", features = [ "mint" ] }
+rusty_spine = { git = "https://github.com/darkskygit/rusty_spine", branch = "master" }
+bevy = { version = "0.12", default-features = false, features = [
+    "bevy_render",
+    "bevy_asset",
+    "bevy_sprite",
+] }
+glam = { version = "0.24", features = ["mint"] }
 thiserror = "1.0.50"
 
 [dev-dependencies]
 lerp = "0.4"
 bevy = { version = "0.12", default-features = true }
 
+[features]
+default = ["spine38"]
+spine38 = ["rusty_spine/spine38"]
+
 [workspace]
 resolver = "2"
-members = [
-    "ci"
-]
+members = ["ci"]

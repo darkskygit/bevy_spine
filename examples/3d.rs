@@ -72,10 +72,22 @@ fn setup(
     ));
 
     // spine
-    let skeleton = SkeletonData::new_from_json(
-        asset_server.load("spineboy/export/spineboy-pro.json"),
-        asset_server.load("spineboy/export/spineboy-pma.atlas"),
-    );
+    let skeleton = {
+        #[cfg(feature = "spine38")]
+        {
+            SkeletonData::new_from_json(
+                asset_server.load("spineboy-3.8/export/spineboy-pro.json"),
+                asset_server.load("spineboy-3.8/export/spineboy-pma.atlas"),
+            )
+        }
+        #[cfg(not(feature = "spine38"))]
+        {
+            SkeletonData::new_from_json(
+                asset_server.load("spineboy/export/spineboy-pro.json"),
+                asset_server.load("spineboy/export/spineboy-pma.atlas"),
+            )
+        }
+    };
     let skeleton_handle = skeletons.add(skeleton);
     commands.spawn(SpineBundle {
         skeleton: skeleton_handle.clone(),
