@@ -10,21 +10,26 @@ license-file = "LICENSE"
 exclude = ["assets/*"]
 
 [dependencies]
-rusty_spine = { git = "https://github.com/darkskygit/rusty_spine", branch = "master" }
 bevy = { version = "0.12", default-features = false, features = [
     "bevy_render",
     "bevy_asset",
     "bevy_sprite",
+    "bevy_text",
 ] }
+bevy_egui = { version = "0.24", optional = true }
+egui = { version = "0.24", optional = true }
+egui_extras = { version = "0.24", optional = true }
+rusty_spine = { git = "https://github.com/darkskygit/rusty_spine", branch = "master" }
 glam = { version = "0.24", features = ["mint"] }
 thiserror = "1.0.50"
 
 [dev-dependencies]
-lerp = "0.4"
+lerp = "0.5.0"
 bevy = { version = "0.12", default-features = true }
 
 [features]
 default = ["spine38"]
+egui_debugger = ["bevy_egui", "egui", "egui_extras"]
 spine38 = ["rusty_spine/spine38"]
 
 [workspace]

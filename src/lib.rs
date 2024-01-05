@@ -46,6 +46,9 @@ pub use crate::rusty_spine::controller::SkeletonController;
 
 pub use rusty_spine;
 
+#[cfg(feature = "egui_debugger")]
+pub mod debugger;
+
 /// System sets for Spine systems.
 #[derive(Debug, Hash, PartialEq, Eq, Clone, Copy, SystemSet)]
 pub enum SpineSystem {
